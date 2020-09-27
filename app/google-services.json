@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "200861141880",
+    "firebase_url": "https://mgworld-ad0e4.firebaseio.com",
+    "project_id": "mgworld-ad0e4",
+    "storage_bucket": "mgworld-ad0e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200861141880:android:cdfc0197d79bb6f36f168d",
+        "android_client_info": {
+          "package_name": "com.abelsalcedo.mgworlapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200861141880-h2kbqqqtnu13jhd5p5lvg5vdbpm3ut8n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abelsalcedo.mgworlapp",
+            "certificate_hash": "f7fb203a429b9433b148e411fbc2457e434344e1"
+          }
+        },
+        {
+          "client_id": "200861141880-c5nv5evd7s4cg12u78lebpbi5q2m33r8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5AKu4GHY5Z0y3OLyjbkwAPBL7d8aPRpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200861141880-c5nv5evd7s4cg12u78lebpbi5q2m33r8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
