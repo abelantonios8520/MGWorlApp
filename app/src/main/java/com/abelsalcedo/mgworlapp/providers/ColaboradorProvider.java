@@ -18,10 +18,6 @@ public class ColaboradorProvider {
     public Task<Void> create(Colaborador colaborador) {
         Map<String, Object> map = new HashMap<>();
         map.put("name", colaborador.getUsername());
-        map.put("ape", colaborador.getApe());
-        map.put("dni", colaborador.getDni());
-        map.put("telef", colaborador.getTelf());
-        map.put("email", colaborador.getEmail());
         return mDatabase.child(colaborador.getId()).setValue(colaborador);
     }
 

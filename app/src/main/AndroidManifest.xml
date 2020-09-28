@@ -15,21 +15,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MessageActivity"></activity>
         <activity android:name=".activities.colaborador.MapColaboradorActivity" />
         <activity android:name=".activities.cliente.MapClienteActivity" />
-        <activity android:name=".activities.cliente.UpdateProfileActivity"></activity>
+        <activity android:name=".activities.cliente.UpdateProfileActivity" />
         <activity android:name=".activities.cliente.DetailRequestActivity" />
         <activity android:name=".activities.ResetPasswordActivity" />
-        <activity android:name=".activities.MainActivityFragment" />
+        <activity android:name=".MainActivityFragment" />
         <activity android:name=".activities.colaborador.RegisterColaboradorActivity" />
         <activity
-            android:name=".activities.LoginActivity"
-            android:parentActivityName=".activities.SelectOptionAuthActivity" />
+            android:name=".LoginActivity"
+            android:parentActivityName=".SelectOptionAuthActivity" />
         <activity
             android:name=".activities.cliente.RegisterActivity"
-            android:parentActivityName=".activities.SelectOptionAuthActivity" />
+            android:parentActivityName=".SelectOptionAuthActivity" />
         <activity
-            android:name=".activities.SelectOptionAuthActivity"
+            android:name=".SelectOptionAuthActivity"
             android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.MainActivity"
@@ -41,6 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />

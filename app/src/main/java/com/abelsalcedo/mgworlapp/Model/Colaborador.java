@@ -1,24 +1,24 @@
 package com.abelsalcedo.mgworlapp.Model;
 
 public class Colaborador {
-    String id;
-    String username;
-    String ape;
-    String dni;
-    String telf;
-    String email;
+   private String id;
+   private String username;
+    private String imageURL;
+    private String status;
+    private String search;
+    private String bio;
 
 
     public Colaborador() {
     }
 
-    public Colaborador(String id, String username, String ape, String dni, String telf, String email) {
+    public Colaborador(String id, String username, String imageURL, String status, String search, String bio) {
         this.id = id;
         this.username = username;
-        this.ape = ape;
-        this.dni = dni;
-        this.telf = telf;
-        this.email = email;
+        this.imageURL = imageURL;
+        this.status = status;
+        this.search = search;
+        this.bio = bio;
     }
 
     public String getId() {
@@ -37,36 +37,35 @@ public class Colaborador {
         this.username = username;
     }
 
-    public String getApe() {
-        return ape;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setApe(String ape) {
-        this.ape = ape;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
-    public String getDni() {
-        return dni;
+    public String getStatus() {
+        return status;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getTelf() {
-        return telf;
+    public String getSearch() {
+        return search;
     }
 
-    public void setTelf(String telf) {
-        this.telf = telf;
+    public void setSearch(String search) {
+        this.search = search;
     }
 
-    public String getEmail() {
-        return email;
+    public String getBio() {
+        return bio;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
-
 }

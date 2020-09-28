@@ -1,25 +1,27 @@
 package com.abelsalcedo.mgworlapp.Model;
 
 public class Cliente {
-    String id;
-    String username;
-    String ape;
-    String telf;
-    String email;
-    String status;
-    String search;
+    private String id;
+    private String username;
+    private String userape;
+    private String usernumber;
+    private String imageURL;
+    private String status;
+    private String search;
+    private String bio;
 
-    public Cliente(String id, String status, String username, String ape, String telef) {
+    public Cliente() {
     }
 
-    public Cliente(String id, String username, String ape, String telf, String email, String status, String search) {
+    public Cliente(String id, String username, String userape, String usernumber, String imageURL, String status, String search, String bio) {
         this.id = id;
         this.username = username;
-        this.ape = ape;
-        this.telf = telf;
-        this.email = email;
+        this.userape = userape;
+        this.usernumber = usernumber;
+        this.imageURL = imageURL;
         this.status = status;
         this.search = search;
+        this.bio = bio;
     }
 
     public String getId() {
@@ -38,28 +40,28 @@ public class Cliente {
         this.username = username;
     }
 
-    public String getApe() {
-        return ape;
+    public String getUserape() {
+        return userape;
     }
 
-    public void setApe(String ape) {
-        this.ape = ape;
+    public void setUserape(String userape) {
+        this.userape = userape;
     }
 
-    public String getTelf() {
-        return telf;
+    public String getUsernumber() {
+        return usernumber;
     }
 
-    public void setTelf(String telf) {
-        this.telf = telf;
+    public void setUsernumber(String usernumber) {
+        this.usernumber = usernumber;
     }
 
-    public String getEmail() {
-        return email;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getStatus() {
@@ -76,5 +78,13 @@ public class Cliente {
 
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }

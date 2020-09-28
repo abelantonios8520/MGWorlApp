@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.abelsalcedo.mgworlapp.R;
+import com.abelsalcedo.mgworlapp.SelectOptionAuthActivity;
 import com.abelsalcedo.mgworlapp.activities.colaborador.MapColaboradorActivity;
 import com.abelsalcedo.mgworlapp.activities.cliente.MapClienteActivity;
 import com.google.firebase.auth.FirebaseAuth;

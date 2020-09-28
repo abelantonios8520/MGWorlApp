@@ -16,6 +16,24 @@
             android:orientation="vertical"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+            <TextView
+                android:id="@+id/register_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:text="Welcome,"
+                android:textColor="@color/colorBlack"
+                android:textSize="36sp"/>
+
+            <TextView
+                android:id="@+id/msg_reg_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="register yourself to continue..."
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,7 +53,7 @@
                     android:layout_marginLeft="5dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputName"
+                        android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Nombre completo"
@@ -65,7 +83,7 @@
                     android:layout_marginLeft="5dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputApe"
+                        android:id="@+id/userApe"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Apellidos"
@@ -95,7 +113,7 @@
                     android:layout_marginLeft="5dp">
 
                     <EditText
-                        android:id="@+id/editTextNumber"
+                        android:id="@+id/userNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -127,7 +145,7 @@
                     android:layout_marginLeft="5dp">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputEmail"
+                        android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Correo electronico"
@@ -159,7 +177,7 @@
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputPassword"
+                        android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Contraseña"
@@ -177,7 +195,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnRegister"
+                    android:id="@+id/btn_register"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"

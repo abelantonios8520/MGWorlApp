@@ -1,4 +1,4 @@
-package com.abelsalcedo.mgworlapp.activities;
+package com.abelsalcedo.mgworlapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.abelsalcedo.mgworlapp.R;
 import com.abelsalcedo.mgworlapp.activities.cliente.MapClienteActivity;
 import com.abelsalcedo.mgworlapp.activities.cliente.RegisterActivity;
 import com.abelsalcedo.mgworlapp.activities.colaborador.MapColaboradorActivity;

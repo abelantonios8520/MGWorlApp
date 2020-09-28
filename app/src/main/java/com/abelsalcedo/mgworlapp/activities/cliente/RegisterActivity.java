@@ -1,126 +1,143 @@
 package com.abelsalcedo.mgworlapp.activities.cliente;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleObserver;
 
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.LifecycleObserver;
+
 import com.abelsalcedo.mgworlapp.R;
-import com.abelsalcedo.mgworlapp.includes.MyToolbar;
-import com.abelsalcedo.mgworlapp.Model.Cliente;
-import com.abelsalcedo.mgworlapp.providers.AuthProvider;
-import com.abelsalcedo.mgworlapp.providers.ClienteProvider;
+import com.abelsalcedo.mgworlapp.Utils;
+import com.abelsalcedo.mgworlapp.activities.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
-import dmax.dialog.SpotsDialog;
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity implements LifecycleObserver {
-    AuthProvider mAuthProvider;
-    ClienteProvider mClienteProvider;
-
-    // VIEWS
-    Button mButtonRegister;
-    TextInputEditText mTextInputEmail;
-    TextInputEditText mTextInputName;
-    TextInputEditText mTextInputPassword;
-    TextInputEditText mTextInputApe;
-    TextView mTextNumero;
-    AlertDialog mDialog;
+    EditText username, userape, usernumber, email, password;
+    TextView register_tv, msg_reg_tv;
+    Button btn_register;
+    Typeface MR, MRR;
+    FirebaseAuth auth;
+    DatabaseReference reference;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        MyToolbar.show(this, "Registro de Cliente", false);
 
-        mAuthProvider = new AuthProvider();
-        mClienteProvider = new ClienteProvider();
+        MRR = Typeface.createFromAsset(getAssets(), "fonts/myriadregular.ttf");
+        MR = Typeface.createFromAsset(getAssets(), "fonts/myriad.ttf");
 
-        mDialog = new SpotsDialog.Builder().setContext(RegisterActivity.this).setMessage("Espere un momento").build();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Register");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        username = findViewById(R.id.username);
+        userape = findViewById(R.id.userApe);
+        usernumber = findViewById(R.id.userNumber);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        btn_register = findViewById(R.id.btn_register);
+        register_tv = findViewById(R.id.register_tv);
+        msg_reg_tv = findViewById(R.id.msg_reg_tv);
 
-        mButtonRegister = findViewById(R.id.btnRegister);
-        mTextInputName = findViewById(R.id.textInputName);
-        mTextInputApe = findViewById(R.id.textInputApe);
-        mTextNumero = findViewById(R.id.editTextNumber);
-        mTextInputEmail = findViewById(R.id.textInputEmail);
-        mTextInputPassword = findViewById(R.id.textInputPassword);
+        msg_reg_tv.setTypeface(MRR);
+        username.setTypeface(MRR);
+        userape.setTypeface(MRR);
+        usernumber.setTypeface(MRR);
+        email.setTypeface(MRR);
+        password.setTypeface(MRR);
+        btn_register.setTypeface(MR);
+        register_tv.setTypeface(MR);
 
+        auth = FirebaseAuth.getInstance();
 
-        mButtonRegister.setOnClickListener(new View.OnClickListener() {
+        btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickRegister();
-            }
-        });
+                String txt_username = username.getText().toString();
+                String txt_userape = userape.getText().toString();
+                String txt_usernumber = usernumber.getText().toString();
+                String txt_email = email.getText().toString();
+                String txt_password = password.getText().toString();
+                Utils.hideKeyboard(RegisterActivity.this);
 
-    }
-
-
-    void clickRegister() {
-        final String username = mTextInputName.getText().toString();
-        final String ape = mTextInputApe.getText().toString();
-        final String telef = mTextNumero.getText().toString();
-        final String email = mTextInputEmail.getText().toString();
-        final String password = mTextInputPassword.getText().toString();
-
-
-        if (!username.isEmpty() && !ape.isEmpty() && !telef.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-            if (password.length() >= 6) {
-                mDialog.show();
-                register(username, ape, telef, email, password);
-            } else {
-                Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(this, "Ingrese todos los campos", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    void register(final String username, final String ape, final String telef, final String email, String password) {
-        mAuthProvider.register(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                mDialog.hide();
-                if (task.isSuccessful()) {
-                    String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    Cliente cliente = new Cliente(id, username, ape, telef, email);
-                    create(cliente);
-                    Toast.makeText(RegisterActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_userape) || TextUtils.isEmpty(txt_usernumber) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
+                    Toast.makeText(RegisterActivity.this, "Todos los archivos son obligatorios", Toast.LENGTH_SHORT).show();
+                } else if (txt_password.length() < 6 ){
+                    Toast.makeText(RegisterActivity.this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(RegisterActivity.this, "No se pudo registrar el usuario", Toast.LENGTH_SHORT).show();
+                    register(txt_username, txt_userape, txt_usernumber, txt_email, txt_password);
                 }
             }
         });
     }
 
-    void create(Cliente cliente) {
-        mClienteProvider.create(cliente).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Intent intent = new Intent(RegisterActivity.this, MapClienteActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(RegisterActivity.this, "No se pudo crear el cliente", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    private void register(final String username, final String userape, final String usernumber, String email, String password){
+
+        dialog = Utils.showLoader(RegisterActivity.this);
+
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            assert firebaseUser != null;
+                            String userid = firebaseUser.getUid();
+
+                            reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put("id", userid);
+                            hashMap.put("username", username);
+                            hashMap.put("userape", userape);
+                            hashMap.put("usernumber", usernumber);
+                            hashMap.put("imageURL", "default");
+                            hashMap.put("status", "offline");
+                            hashMap.put("bio", "");
+                            hashMap.put("search", username.toLowerCase());
+                            if(dialog!=null){
+                                dialog.dismiss();
+                            }
+                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "You can't register woth this email or password", Toast.LENGTH_SHORT).show();
+                            if(dialog!=null){
+                                dialog.dismiss();
+                            }
+                        }
+                    }
+                });
     }
 }

@@ -5,5 +5,8 @@
         android:id="@+id/logout"
         android:title="Logout"
         app:showAsAction="never"/>
-
+    <item
+        android:id="@+id/Mapa"
+        android:title="Mapa"
+        app:showAsAction="never"/>
 </menu>
