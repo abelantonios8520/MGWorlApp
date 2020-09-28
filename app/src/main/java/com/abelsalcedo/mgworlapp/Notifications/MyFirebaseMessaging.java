@@ -1,6 +1,5 @@
 package com.abelsalcedo.mgworlapp.Notifications;
 
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -17,11 +16,10 @@ import androidx.core.app.NotificationCompat;
 import com.abelsalcedo.mgworlapp.MessageActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import static android.content.Context.MODE_PRIVATE;
-
-public class MyFirebaseMessaging {
+public class MyFirebaseMessaging extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

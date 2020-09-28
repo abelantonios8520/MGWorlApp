@@ -1,7 +1,5 @@
 package com.abelsalcedo.mgworlapp.Notifications;
 
-import android.app.NotificationManager;
-
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -12,10 +10,10 @@ import android.content.ContextWrapper;
 import android.net.Uri;
 import android.os.Build;
 
-public class OreoNotification {
+public class OreoNotification extends ContextWrapper {
 
     private static final String CHANNEL_ID = "com.abelsalcedo.mgworlapp";
-    private static final String CHANNEL_NAME = "MGWorlApp";
+    private static final String CHANNEL_NAME = "mgworlApp";
 
     private NotificationManager notificationManager;
 
@@ -60,3 +58,4 @@ public class OreoNotification {
                 .setAutoCancel(true);
     }
 }
+

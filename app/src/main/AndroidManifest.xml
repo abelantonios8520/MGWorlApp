@@ -20,9 +20,12 @@
         <activity android:name=".activities.cliente.MapClienteActivity" />
         <activity android:name=".activities.cliente.UpdateProfileActivity" />
         <activity android:name=".activities.cliente.DetailRequestActivity" />
-        <activity android:name=".activities.ResetPasswordActivity" />
         <activity android:name=".MainActivityFragment" />
         <activity android:name=".activities.colaborador.RegisterColaboradorActivity" />
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:parentActivityName=".LoginActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".LoginActivity"
             android:parentActivityName=".SelectOptionAuthActivity" />
@@ -42,7 +45,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <service
+            android:name=".Notifications.MyFirebaseIdService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Notifications.MyFirebaseMessaging"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />
