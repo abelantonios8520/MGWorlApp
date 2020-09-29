@@ -258,8 +258,8 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
 
     private void requestColaborador() {
 
-        if (mOriginLatLng != null && mDestinationLatLng != null) {
-            Intent intent = new Intent(MapClienteActivity.this, DetailRequestActivity.class);
+        if (mOriginLatLng  != null && mDestinationLatLng != null) {
+            Intent intent = new Intent(this, MainActivityFragment.class);
             intent.putExtra("origin_lat", mOriginLatLng.latitude);
             intent.putExtra("origin_lng", mOriginLatLng.longitude);
             intent.putExtra("destination_lat", mDestinationLatLng.latitude);
@@ -267,11 +267,13 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             intent.putExtra("origin", mOrigin);
             intent.putExtra("destination", mDestination);
             startActivity(intent);
+            Toast.makeText(MapClienteActivity.this, "MessengerWorld", Toast.LENGTH_SHORT).show();
+
         } else {
-            Toast.makeText(MapClienteActivity.this, "Tiene que poner el lugar de recogida y destino", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MapClienteActivity.this, MainActivityFragment.class);
-//            Toast.makeText(this, "Debe seleccionar el lugar de recogida y el destino", Toast.LENGTH_SHORT).show();
-            startActivity(intent);
+        //    Intent intent = new Intent(this, DetailRequestActivity.class);
+         //   startActivity(intent);
+            Toast.makeText(MapClienteActivity.this, "Error", Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -325,6 +327,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             }
         });
     }
+
 
     private void instanceAutocompleteDestination() {
         mAutocompleteDestination = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.placeAutocompleteDestination);

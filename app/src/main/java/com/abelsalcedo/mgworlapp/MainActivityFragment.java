@@ -91,12 +91,14 @@ public class MainActivityFragment extends AppCompatActivity implements OnItemCli
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Cliente user = dataSnapshot.getValue(Cliente.class);
                 username.setText(user.getUsername());
-                if (user.getImageURL().equals("default")){
+                /*if (user.getImageURL().equals("default")){
                     profile_image.setImageResource(R.drawable.profile_img);
                 } else {
                     //change this
                     Glide.with(getApplicationContext()).load(user.getImageURL()).into(profile_image);
                 }
+                */
+
             }
 
             @Override
