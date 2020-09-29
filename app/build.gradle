@@ -59,6 +59,8 @@ dependencies {
     implementation 'id.zelory:compressor:2.1.0'
     implementation 'com.github.sd6352051.niftydialogeffects:niftydialogeffects:1.0.0@aar'
 
+
+    //add this library and this
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     implementation 'com.github.florent37:shapeofview:1.3.2'

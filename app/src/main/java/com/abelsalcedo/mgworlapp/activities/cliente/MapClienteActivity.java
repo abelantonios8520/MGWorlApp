@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.abelsalcedo.mgworlapp.MainActivityFragment;
+import com.abelsalcedo.mgworlapp.MainActivity_prueba;
 import com.abelsalcedo.mgworlapp.Model.TokenMG;
 import com.abelsalcedo.mgworlapp.Model.User;
 import com.abelsalcedo.mgworlapp.providers.ClienteProvider;
@@ -269,6 +270,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
         } else {
             Toast.makeText(MapClienteActivity.this, "Tiene que poner el lugar de recogida y destino", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MapClienteActivity.this, MainActivityFragment.class);
+//            Toast.makeText(this, "Debe seleccionar el lugar de recogida y el destino", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
 
