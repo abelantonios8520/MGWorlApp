@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:androidx="http://schemas.android.com/tools"
+    androidx:background="@color/colorWhite"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="?attr/actionBarSize">
+            <ImageView
+                android:id="@+id/i_food_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/t_name"
+                android:padding="8dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="Briyani"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/t_cost"
+                android:layout_below="@+id/i_food_image"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/t_cost" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/t_cost"
+                android:text="150"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:padding="8dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/i_food_image"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="6dp"
+                android:layout_alignParentRight="true" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/i_minus"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_toStartOf="@+id/h_quantity"
+                android:layout_below="@+id/h_quantity"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:background="?attr/actionBarItemBackground"
+                android:src="@drawable/ic_minus"
+                android:layout_toLeftOf="@+id/h_quantity"
+                android:layout_marginRight="16dp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/i_plus"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_toEndOf="@+id/h_quantity"
+                android:layout_below="@+id/h_quantity"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="?attr/actionBarItemBackground"
+                android:src="@drawable/ic_plus1"
+                android:layout_marginBottom="16dp"
+                android:layout_toRightOf="@+id/h_quantity"
+                android:layout_marginLeft="16dp" />
+
+            <TextView
+                android:id="@+id/h_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/t_name"
+                android:layout_marginTop="32dp"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"
+                android:text="Quantity" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/t_quantity"
+                android:text="0"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_alignBottom="@id/i_plus"
+                android:layout_alignTop="@id/i_plus"
+                android:layout_toStartOf="@id/i_plus"
+                android:layout_toEndOf="@+id/i_minus"
+                android:layout_toLeftOf="@id/i_plus"
+                android:layout_toRightOf="@+id/i_minus" />
+        </RelativeLayout>
+    </ScrollView>
+    <androidx.appcompat.widget.Toolbar android:id="@+id/cart_view"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/ratingHigh"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/i_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_cart"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:id="@+id/t_cart_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/i_cart"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:text="0"
+                android:textColor="@color/colorWhite"
+                android:layout_toRightOf="@+id/i_cart" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/i_cart"
+                android:layout_alignBottom="@+id/i_cart"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toEndOf="@+id/t_cart_count"
+                android:background="@color/colorWhite"
+                android:layout_toRightOf="@+id/t_cart_count" />
+
+            <TextView
+                android:id="@+id/t_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/b_cart"
+                android:layout_toEndOf="@+id/divider"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:text="@string/rupee_symbol"
+                android:textColor="@color/colorWhite"
+                android:layout_toLeftOf="@+id/b_cart"
+                android:layout_toRightOf="@+id/divider" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/b_cart"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/view_cart"
+                android:textColor="@color/colorWhite"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+</RelativeLayout>
