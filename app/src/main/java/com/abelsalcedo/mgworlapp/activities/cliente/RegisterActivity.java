@@ -20,6 +20,8 @@ import androidx.lifecycle.LifecycleObserver;
 import com.abelsalcedo.mgworlapp.R;
 import com.abelsalcedo.mgworlapp.Utils;
 import com.abelsalcedo.mgworlapp.activities.MainActivity;
+import com.abelsalcedo.mgworlapp.providers.AuthProvider;
+import com.abelsalcedo.mgworlapp.providers.ClienteProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,7 +40,6 @@ public class RegisterActivity extends AppCompatActivity implements LifecycleObse
     FirebaseAuth auth;
     DatabaseReference reference;
     ProgressDialog dialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity implements LifecycleObse
                             assert firebaseUser != null;
                             String userid = firebaseUser.getUid();
 
-                            reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+                            reference = FirebaseDatabase.getInstance().getReference("Users/Clientes").child(userid);
 
                             HashMap<String, String> hashMap = new HashMap<>();
                             hashMap.put("id", userid);

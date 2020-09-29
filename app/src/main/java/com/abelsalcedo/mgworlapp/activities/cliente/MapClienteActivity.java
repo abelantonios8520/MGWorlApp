@@ -32,6 +32,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abelsalcedo.mgworlapp.MainActivityFragment;
 import com.abelsalcedo.mgworlapp.Model.TokenMG;
 import com.abelsalcedo.mgworlapp.Model.User;
 import com.abelsalcedo.mgworlapp.providers.ClienteProvider;
@@ -530,10 +531,10 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             Intent intent = new Intent(MapClienteActivity.this, UpdateProfileActivity.class);
             startActivity(intent);
         }
-//        if (item.getItemId() == R.id.action_history) {
-//            Intent intent = new Intent(MapClienteActivity.this, HistoryBookingClienteActivity.class);
-//            startActivity(intent);
-//        }
+        if (item.getItemId() == R.id.action_history) {
+            Intent intent = new Intent(MapClienteActivity.this, MainActivityFragment.class);
+            startActivity(intent);
+        }
 
         if (item.getItemId() == R.id.action_Pedir) {
             showDialog();

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abelsalcedo.mgworlapp.activities.cliente.MapClienteActivity;
 import com.abelsalcedo.mgworlapp.activities.colaborador.MapColaboradorActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -117,8 +118,8 @@ public class LoginActivity extends AppCompatActivity {
                                         if (dataSnapshot.exists()) {
                                             //mostarToastDown("ATENCION", "Este no es un usuario permitido");
                                             Toast.makeText(LoginActivity.this, "Login exitoso cliente", Toast.LENGTH_SHORT).show();
-//                                            Intent intent = new Intent(LoginActivity.this, MapClienteActivity.class);
-                                            Intent intent = new Intent(LoginActivity.this, MainActivityFragment.class);
+                                            Intent intent = new Intent(LoginActivity.this, MapClienteActivity.class);
+                                            //Intent intent = new Intent(LoginActivity.this, MainActivityFragment.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(intent);
                                         } else {

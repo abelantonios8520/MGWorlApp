@@ -9,6 +9,10 @@
         android:title="Editar perfil"
         app:showAsAction="never" />
 
+    <item android:id="@+id/action_history"
+        android:title="Historial de viajes"
+        app:showAsAction="never" />
+
     <item android:id="@+id/action_logout"
         android:title="Cerrar sesion"
         app:showAsAction="never" />
