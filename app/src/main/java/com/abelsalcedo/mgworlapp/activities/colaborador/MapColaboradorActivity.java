@@ -44,7 +44,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.abelsalcedo.mgworlapp.R;
-import com.abelsalcedo.mgworlapp.activities.MainActivity;
+import com.abelsalcedo.mgworlapp.activities.MainActivityMapa;
 import com.abelsalcedo.mgworlapp.includes.MyToolbar;
 import com.abelsalcedo.mgworlapp.providers.AuthProvider;
 import com.abelsalcedo.mgworlapp.providers.GeofireProvider;
@@ -355,7 +355,7 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
     void logout() {
         disconnect();
         mAuthProvider.logout();
-        Intent intent = new Intent(MapColaboradorActivity.this, MainActivity.class);
+        Intent intent = new Intent(MapColaboradorActivity.this, MainActivityMapa.class);
         startActivity(intent);
         finish();
     }

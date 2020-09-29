@@ -34,15 +34,15 @@
             android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".MessageActivity" />
         <activity
-            android:name=".activities.cliente.RegisterActivity"
+            android:name=".RegisterActivity"
             android:parentActivityName=".SelectOptionAuthActivity"
             android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".MainActivityFragment" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".SelectOptionAuthActivity"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivityMapa" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.MainActivityMapa"
             android:parentActivityName=".activities.splashActivity" />
         <activity android:name=".activities.splashActivity">
             <intent-filter>
@@ -54,7 +54,8 @@
         <service
             android:name=".Notifications.MyFirebaseIdService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

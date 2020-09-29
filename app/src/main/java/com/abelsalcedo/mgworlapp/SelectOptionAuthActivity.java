@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.abelsalcedo.mgworlapp.activities.cliente.MapClienteActivity;
-import com.abelsalcedo.mgworlapp.activities.cliente.RegisterActivity;
 import com.abelsalcedo.mgworlapp.activities.colaborador.MapColaboradorActivity;
 import com.abelsalcedo.mgworlapp.activities.colaborador.RegisterColaboradorActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;

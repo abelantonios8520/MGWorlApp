@@ -1,11 +1,5 @@
 package com.abelsalcedo.mgworlapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -16,15 +10,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.abelsalcedo.mgworlapp.Adapter.MessageAdapter;
-import com.abelsalcedo.mgworlapp.Fragments.APIService;
-import com.abelsalcedo.mgworlapp.Model.Chat;
-import com.abelsalcedo.mgworlapp.Model.Cliente;
-import com.abelsalcedo.mgworlapp.Notifications.Client;
-import com.abelsalcedo.mgworlapp.Notifications.Data;
-import com.abelsalcedo.mgworlapp.Notifications.MyResponse;
-import com.abelsalcedo.mgworlapp.Notifications.Sender;
-import com.abelsalcedo.mgworlapp.Notifications.Token;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,6 +25,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.abelsalcedo.mgworlapp.Adapter.MessageAdapter;
+import com.abelsalcedo.mgworlapp.Fragments.APIService;
+import com.abelsalcedo.mgworlapp.Model.Chat;
+import com.abelsalcedo.mgworlapp.Model.Cliente;
+import com.abelsalcedo.mgworlapp.Notifications.Client;
+import com.abelsalcedo.mgworlapp.Notifications.Data;
+import com.abelsalcedo.mgworlapp.Notifications.MyResponse;
+import com.abelsalcedo.mgworlapp.Notifications.Token;
+import com.abelsalcedo.mgworlapp.Notifications.Sender;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +45,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MessageActivity extends AppCompatActivity {
+
     CircleImageView profile_image;
     TextView username;
 
@@ -87,7 +88,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // and this
-                startActivity(new Intent(MessageActivity.this, MainActivityFragment.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(MessageActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 

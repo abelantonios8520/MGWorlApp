@@ -20,7 +20,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.abelsalcedo.mgworlapp.activities.MainActivity;
+import com.abelsalcedo.mgworlapp.R;
+import com.abelsalcedo.mgworlapp.Utils;
+import com.abelsalcedo.mgworlapp.ViewProfileActivity;
+import com.abelsalcedo.mgworlapp.activities.MainActivityMapa;
 import com.abelsalcedo.mgworlapp.activities.cliente.MapClienteActivity;
 import com.bumptech.glide.Glide;
 import com.abelsalcedo.mgworlapp.Adapter.OnItemClick;
@@ -43,7 +46,7 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivityFragment extends AppCompatActivity implements OnItemClick {
+public class MainActivity extends AppCompatActivity implements OnItemClick {
 
     boolean doubleBackToExitPressedOnce = false;
     CircleImageView profile_image;
@@ -58,7 +61,7 @@ public class MainActivityFragment extends AppCompatActivity implements OnItemCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_fragment);
+        setContentView(R.layout.activity_main);
 
         this.onItemClick = this;
         MRR = Typeface.createFromAsset(getAssets(), "fonts/myriadregular.ttf");
@@ -107,7 +110,7 @@ public class MainActivityFragment extends AppCompatActivity implements OnItemCli
 
 
         reference = FirebaseDatabase.getInstance().getReference("Chats");
-        dialog = Utils.showLoader(MainActivityFragment.this);
+        dialog = Utils.showLoader(MainActivity.this);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -161,10 +164,10 @@ public class MainActivityFragment extends AppCompatActivity implements OnItemCli
             case  R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 // change this code beacuse your app will crash
-                startActivity(new Intent(MainActivityFragment.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(MainActivity.this, MainActivityMapa.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
             case R.id.Mapa:
-                Intent intent = new Intent(MainActivityFragment.this, MapClienteActivity.class);
+                Intent intent = new Intent(MainActivity.this, MapClienteActivity.class);
                 startActivity(intent);
                 return true;
         }

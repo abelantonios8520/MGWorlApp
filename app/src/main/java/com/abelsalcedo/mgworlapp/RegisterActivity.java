@@ -1,5 +1,4 @@
-package com.abelsalcedo.mgworlapp.activities.cliente;
-
+package com.abelsalcedo.mgworlapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,13 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.LifecycleObserver;
 
-import com.abelsalcedo.mgworlapp.R;
-import com.abelsalcedo.mgworlapp.Utils;
-import com.abelsalcedo.mgworlapp.activities.MainActivity;
-import com.abelsalcedo.mgworlapp.providers.AuthProvider;
-import com.abelsalcedo.mgworlapp.providers.ClienteProvider;
+import com.abelsalcedo.mgworlapp.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,17 +23,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.HashMap;
 
-public class RegisterActivity extends AppCompatActivity implements LifecycleObserver {
-    EditText username, userape, usernumber, email, password;
+public class RegisterActivity extends AppCompatActivity {
+
+    EditText username, email, password;
     TextView register_tv, msg_reg_tv;
     Button btn_register;
     Typeface MR, MRR;
     FirebaseAuth auth;
     DatabaseReference reference;
     ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +51,6 @@ public class RegisterActivity extends AppCompatActivity implements LifecycleObse
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         username = findViewById(R.id.username);
-        userape = findViewById(R.id.userApe);
-        usernumber = findViewById(R.id.userNumber);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btn_register = findViewById(R.id.btn_register);
@@ -64,8 +59,6 @@ public class RegisterActivity extends AppCompatActivity implements LifecycleObse
 
         msg_reg_tv.setTypeface(MRR);
         username.setTypeface(MRR);
-        userape.setTypeface(MRR);
-        usernumber.setTypeface(MRR);
         email.setTypeface(MRR);
         password.setTypeface(MRR);
         btn_register.setTypeface(MR);
@@ -77,24 +70,22 @@ public class RegisterActivity extends AppCompatActivity implements LifecycleObse
             @Override
             public void onClick(View view) {
                 String txt_username = username.getText().toString();
-                String txt_userape = userape.getText().toString();
-                String txt_usernumber = usernumber.getText().toString();
                 String txt_email = email.getText().toString();
                 String txt_password = password.getText().toString();
                 Utils.hideKeyboard(RegisterActivity.this);
 
-                if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_userape) || TextUtils.isEmpty(txt_usernumber) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
+                if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
                     Toast.makeText(RegisterActivity.this, "Todos los archivos son obligatorios", Toast.LENGTH_SHORT).show();
                 } else if (txt_password.length() < 6 ){
                     Toast.makeText(RegisterActivity.this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
                 } else {
-                    register(txt_username, txt_userape, txt_usernumber, txt_email, txt_password);
+                    register(txt_username, txt_email, txt_password);
                 }
             }
         });
     }
 
-    private void register(final String username, final String userape, final String usernumber, String email, String password){
+    private void register(final String username, String email, String password){
 
         dialog = Utils.showLoader(RegisterActivity.this);
 
@@ -107,13 +98,11 @@ public class RegisterActivity extends AppCompatActivity implements LifecycleObse
                             assert firebaseUser != null;
                             String userid = firebaseUser.getUid();
 
-                            reference = FirebaseDatabase.getInstance().getReference("Users/Clientes").child(userid);
+                            reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
                             HashMap<String, String> hashMap = new HashMap<>();
                             hashMap.put("id", userid);
                             hashMap.put("username", username);
-                            hashMap.put("userape", userape);
-                            hashMap.put("usernumber", usernumber);
                             hashMap.put("imageURL", "default");
                             hashMap.put("status", "offline");
                             hashMap.put("bio", "");
@@ -125,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity implements LifecycleObse
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
-                                        Intent intent = new Intent(RegisterActivity.this, MapClienteActivity.class);
+                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
@@ -133,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity implements LifecycleObse
                                 }
                             });
                         } else {
-                            Toast.makeText(RegisterActivity.this, "No puede registrarse con este correo electrónico o contraseña", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "You can't register woth this email or password", Toast.LENGTH_SHORT).show();
                             if(dialog!=null){
                                 dialog.dismiss();
                             }

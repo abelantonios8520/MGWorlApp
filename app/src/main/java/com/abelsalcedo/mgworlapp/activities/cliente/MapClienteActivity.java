@@ -32,14 +32,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.abelsalcedo.mgworlapp.MainActivityFragment;
-import com.abelsalcedo.mgworlapp.Model.TokenMG;
-import com.abelsalcedo.mgworlapp.Model.User;
+import com.abelsalcedo.mgworlapp.MainActivity;
 import com.abelsalcedo.mgworlapp.providers.ClienteProvider;
 import com.abelsalcedo.mgworlapp.providers.TokenProvider;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQueryEventListener;
-import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -61,11 +58,10 @@ import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.abelsalcedo.mgworlapp.R;
-import com.abelsalcedo.mgworlapp.activities.MainActivity;
+import com.abelsalcedo.mgworlapp.activities.MainActivityMapa;
 import com.abelsalcedo.mgworlapp.includes.MyToolbar;
 import com.abelsalcedo.mgworlapp.providers.AuthProvider;
 import com.abelsalcedo.mgworlapp.providers.GeofireProvider;
@@ -73,7 +69,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.SphericalUtil;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -268,7 +263,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             startActivity(intent);
         } else {
             Toast.makeText(MapClienteActivity.this, "Tiene que poner el lugar de recogida y destino", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MapClienteActivity.this, MainActivityFragment.class);
+            Intent intent = new Intent(MapClienteActivity.this, MainActivityMapa.class);
             startActivity(intent);
         }
 
@@ -531,7 +526,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             startActivity(intent);
         }
         if (item.getItemId() == R.id.action_history) {
-            Intent intent = new Intent(MapClienteActivity.this, MainActivityFragment.class);
+            Intent intent = new Intent(MapClienteActivity.this, MainActivity.class);
             startActivity(intent);
         }
 
@@ -545,7 +540,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
 
     void logout() {
         mAuthProvider.logout();
-        Intent intent = new Intent(MapClienteActivity.this, MainActivity.class);
+        Intent intent = new Intent(MapClienteActivity.this, MainActivityMapa.class);
         startActivity(intent);
         finish();
     }
