@@ -58,7 +58,7 @@ public class MainActivityFragment extends AppCompatActivity implements OnItemCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_fragment);
 
         this.onItemClick = this;
         MRR = Typeface.createFromAsset(getAssets(), "fonts/myriadregular.ttf");

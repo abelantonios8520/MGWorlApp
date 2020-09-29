@@ -125,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity implements LifecycleObse
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
-                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                        Intent intent = new Intent(RegisterActivity.this, MapClienteActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
@@ -133,7 +133,7 @@ public class RegisterActivity extends AppCompatActivity implements LifecycleObse
                                 }
                             });
                         } else {
-                            Toast.makeText(RegisterActivity.this, "You can't register woth this email or password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "No puede registrarse con este correo electrónico o contraseña", Toast.LENGTH_SHORT).show();
                             if(dialog!=null){
                                 dialog.dismiss();
                             }

@@ -21,12 +21,6 @@ public class ClienteProvider {
         return mDatabase.child(cliente.getId()).setValue(map);
     }
 
-    public Task<Void> update(Cliente cliente) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", cliente.getUsername());
-        return mDatabase.child(cliente.getId()).updateChildren(map);
-    }
-
     public DatabaseReference getCliente(String idCliente) {
         return mDatabase.child(idCliente);
     }

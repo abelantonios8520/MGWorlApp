@@ -268,9 +268,8 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             startActivity(intent);
         } else {
             Toast.makeText(MapClienteActivity.this, "Tiene que poner el lugar de recogida y destino", Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(MapClienteActivity.this, FirebaseChat.class);
-//            Toast.makeText(this, "Debe seleccionar el lugar de recogida y el destino", Toast.LENGTH_SHORT).show();
-//            startActivity(intent);
+            Intent intent = new Intent(MapClienteActivity.this, MainActivityFragment.class);
+            startActivity(intent);
         }
 
     }
