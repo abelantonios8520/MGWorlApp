@@ -13,6 +13,6 @@
     <color name="ratingMedium">#FFA500</color>
     <color name="ratingHigh">#00A300</color>
     <color name="white">#ffffff</color>
-    <color name="grey">#eeeeee</color>
     <color name="grey_text">#4c4c4d</color>
+
 </resources>
