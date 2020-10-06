@@ -334,8 +334,8 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_search) {
-//            Intent intent = new Intent(MapColaboradorActivity.this, buscarClientesActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(MapColaboradorActivity.this, MainActivityMapa.class);
+            startActivity(intent);
         }
 
         if (item.getItemId() == R.id.action_logout) {
