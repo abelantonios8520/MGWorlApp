@@ -1,5 +1,6 @@
 package com.abelsalcedo.mgworlapp.providers;
 
+
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;

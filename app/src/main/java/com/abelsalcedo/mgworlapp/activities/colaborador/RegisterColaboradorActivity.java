@@ -1,135 +1,126 @@
 package com.abelsalcedo.mgworlapp.activities.colaborador;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.abelsalcedo.mgworlapp.R;
-import com.abelsalcedo.mgworlapp.Utils;
-import com.abelsalcedo.mgworlapp.activities.MainActivityMapa;
+import com.abelsalcedo.mgworlapp.includes.MyToolbar;
+import com.abelsalcedo.mgworlapp.Model.Colaborador;
+import com.abelsalcedo.mgworlapp.providers.AuthProvider;
+import com.abelsalcedo.mgworlapp.providers.ColaboradorProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
-import java.util.HashMap;
+import dmax.dialog.SpotsDialog;
 
 public class RegisterColaboradorActivity extends AppCompatActivity {
 
-    EditText username, email, password;
-    TextView register_tv, msg_reg_tv;
-    Button btn_register;
-    Typeface MR, MRR;
-    FirebaseAuth auth;
-    DatabaseReference reference;
-    ProgressDialog dialog;
+    AuthProvider mAuthProvider;
+    ColaboradorProvider mColabProvider;
+
+    // VIEWS
+    Button mButtonRegister;
+    TextInputEditText mTextInputNam;
+    TextInputEditText mTextInputAp;
+    TextInputEditText mTextInputDni;
+    TextInputEditText mTextInputTel;
+    TextInputEditText mTextInputEmail;
+    TextInputEditText mTextInputPassword;
+
+    AlertDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_colaborador);
+        MyToolbar.show(this, "Registro de Emprendedor", true);
 
-        MRR = Typeface.createFromAsset(getAssets(), "fonts/myriadregular.ttf");
-        MR = Typeface.createFromAsset(getAssets(), "fonts/myriad.ttf");
+        mAuthProvider = new AuthProvider();
+        mColabProvider = new ColaboradorProvider();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Register");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mDialog = new SpotsDialog.Builder().setContext(RegisterColaboradorActivity.this).setMessage("Espere un momento").build();
 
-        username = findViewById(R.id.username);
-        email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
-        btn_register = findViewById(R.id.btn_register);
-        register_tv = findViewById(R.id.register_tv);
-        msg_reg_tv = findViewById(R.id.msg_reg_tv);
+        mButtonRegister = findViewById(R.id.btnRegister);
+        mTextInputNam = findViewById(R.id.textInputNam);
+        mTextInputAp = findViewById(R.id.textInputAp);
+        mTextInputDni = findViewById(R.id.textInputDni);
+        mTextInputTel = findViewById(R.id.textInputTelef);
+        mTextInputEmail = findViewById(R.id.textInputEmail);
+        mTextInputPassword = findViewById(R.id.textInputPassword);
 
-        msg_reg_tv.setTypeface(MRR);
-        username.setTypeface(MRR);
-        email.setTypeface(MRR);
-        password.setTypeface(MRR);
-        btn_register.setTypeface(MR);
-        register_tv.setTypeface(MR);
-
-        auth = FirebaseAuth.getInstance();
-
-        btn_register.setOnClickListener(new View.OnClickListener() {
+        mButtonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txt_username = username.getText().toString();
-                String txt_email = email.getText().toString();
-                String txt_password = password.getText().toString();
-                Utils.hideKeyboard(RegisterColaboradorActivity.this);
+                clickRegister();
+            }
+        });
+    }
 
-                if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
-                    Toast.makeText(RegisterColaboradorActivity.this, "Todos los archivos son obligatorios", Toast.LENGTH_SHORT).show();
-                } else if (txt_password.length() < 6 ){
-                    Toast.makeText(RegisterColaboradorActivity.this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
-                } else {
-                    register(txt_username, txt_email, txt_password);
+    void clickRegister() {
+        final String name = mTextInputNam.getText().toString();
+        final String ape = mTextInputAp.getText().toString();
+        final String dni = mTextInputDni.getText().toString();
+        final String telf = mTextInputTel.getText().toString();
+        final String email = mTextInputEmail.getText().toString();
+        final String password = mTextInputPassword.getText().toString();
+
+        if (!name.isEmpty() && !ape.isEmpty() && !dni.isEmpty() && !telf.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+            if (password.length() >= 6) {
+                mDialog.show();
+                register(name, ape, dni, telf, email, password);
+            }
+            else {
+                Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            Toast.makeText(this, "Ingrese todos los campos", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void register(final String name, final String ape, final String dni, final String telef, final String email, String password) {
+        mAuthProvider.register(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                mDialog.hide();
+                if (task.isSuccessful()) {
+                    String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    Colaborador colaborador = new Colaborador(id, name, ape, dni, telef, email);
+                    create(colaborador);
+                }
+                else {
+                    Toast.makeText(RegisterColaboradorActivity.this, "No se pudo registrar el usuario", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    private void register(final String username, String email, String password){
-
-        dialog = Utils.showLoader(RegisterColaboradorActivity.this);
-
-        auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            FirebaseUser firebaseUser = auth.getCurrentUser();
-                            assert firebaseUser != null;
-                            String userid = firebaseUser.getUid();
-
-                            reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-
-                            HashMap<String, String> hashMap = new HashMap<>();
-                            hashMap.put("id", userid);
-                            hashMap.put("username", username);
-                            hashMap.put("imageURL", "default");
-                            hashMap.put("status", "offline");
-                            hashMap.put("bio", "");
-                            hashMap.put("search", username.toLowerCase());
-                            if(dialog!=null){
-                                dialog.dismiss();
-                            }
-                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-                                        Intent intent = new Intent(RegisterColaboradorActivity.this, MainActivityMapa.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                }
-                            });
-                        } else {
-                            Toast.makeText(RegisterColaboradorActivity.this, "You can't register woth this email or password", Toast.LENGTH_SHORT).show();
-                            if(dialog!=null){
-                                dialog.dismiss();
-                            }
-                        }
-                    }
-                });
+    void create(Colaborador colaborador) {
+        mColabProvider.create(colaborador).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    //Toast.makeText(RegisterDriverActivity.this, "El registro se realizo exitosamente", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterColaboradorActivity.this, MapColaboradorActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    Toast.makeText(RegisterColaboradorActivity.this, "El registro se realizo exitosamente", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(RegisterColaboradorActivity.this, "No se pudo crear el cliente", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
+
 }

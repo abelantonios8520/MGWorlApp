@@ -1,23 +1,25 @@
 package com.abelsalcedo.mgworlapp.Model;
 
 public class Cliente {
-    private String id;
-    private String username;
-    private String imageURL;
+    String id;
+    String name;
+    String ape;
+    String telf;
+    String email;
     private String status;
-    private String search;
-    private String bio;
+    private String imageURL;
 
     public Cliente() {
     }
 
-    public Cliente(String id, String username, String imageURL, String status, String search, String bio) {
+    public Cliente(String id, String name, String ape, String telf, String email, String status, String imageURL) {
         this.id = id;
-        this.username = username;
-        this.imageURL = imageURL;
+        this.name = name;
+        this.ape = ape;
+        this.telf = telf;
+        this.email = email;
         this.status = status;
-        this.search = search;
-        this.bio = bio;
+        this.imageURL = imageURL;
     }
 
     public String getId() {
@@ -28,20 +30,36 @@ public class Cliente {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getApe() {
+        return ape;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setApe(String ape) {
+        this.ape = ape;
+    }
+
+    public String getTelf() {
+        return telf;
+    }
+
+    public void setTelf(String telf) {
+        this.telf = telf;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getStatus() {
@@ -52,19 +70,11 @@ public class Cliente {
         this.status = status;
     }
 
-    public String getSearch() {
-        return search;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setSearch(String search) {
-        this.search = search;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

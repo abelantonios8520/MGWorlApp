@@ -25,7 +25,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.abelsalcedo.mgworlapp.providers.TokenProvider;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -44,10 +43,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.abelsalcedo.mgworlapp.R;
-import com.abelsalcedo.mgworlapp.activities.MainActivityMapa;
+import com.abelsalcedo.mgworlapp.activities.MainActivity;
 import com.abelsalcedo.mgworlapp.includes.MyToolbar;
 import com.abelsalcedo.mgworlapp.providers.AuthProvider;
 import com.abelsalcedo.mgworlapp.providers.GeofireProvider;
+import com.abelsalcedo.mgworlapp.providers.TokenProvider;
 
 public class MapColaboradorActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -56,6 +56,7 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
     private AuthProvider mAuthProvider;
     private GeofireProvider mGeofireProvider;
     private TokenProvider mTokenProvider;
+
     private LocationRequest mLocationRequest;
     private FusedLocationProviderClient mFusedLocation;
 
@@ -114,7 +115,7 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
 
         mAuthProvider = new AuthProvider();
         mGeofireProvider = new GeofireProvider("active_colaboradores");
-        //mTokenProvider = new TokenProvider();
+        mTokenProvider = new TokenProvider();
         //mbtnChat = findViewById(R.id.imgBtnChat);
         mFusedLocation = LocationServices.getFusedLocationProviderClient(this);
 
@@ -134,7 +135,7 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
         });
 
 
-        //  generateToken();
+        generateToken();
         isColaboradorWorking();
 
     }
@@ -334,7 +335,7 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_search) {
-            Intent intent = new Intent(MapColaboradorActivity.this, MainActivityMapa.class);
+            Intent intent = new Intent(MapColaboradorActivity.this, buscarClientesActivity.class);
             startActivity(intent);
         }
 
@@ -342,12 +343,12 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
             logout();
         }
         if (item.getItemId() == R.id.action_update) {
-//            Intent intent = new Intent(MapColaboradorActivity.this, UpdateProfileColaboradorActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(MapColaboradorActivity.this, UpdateProfileColaboradorActivity.class);
+            startActivity(intent);
         }
         if (item.getItemId() == R.id.action_history) {
-//            Intent intent = new Intent(MapColaboradorActivity.this, HistoryBookingColaboradorActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(MapColaboradorActivity.this, HistoryBookingColaboradorActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -355,12 +356,12 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
     void logout() {
         disconnect();
         mAuthProvider.logout();
-        Intent intent = new Intent(MapColaboradorActivity.this, MainActivityMapa.class);
+        Intent intent = new Intent(MapColaboradorActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
-     void generateToken() {
-         mTokenProvider.create(mAuthProvider.getId());
-     }
+    void generateToken() {
+        mTokenProvider.create(mAuthProvider.getId());
+    }
 }

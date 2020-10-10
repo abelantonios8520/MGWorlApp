@@ -1,24 +1,35 @@
 package com.abelsalcedo.mgworlapp.Model;
 
 public class Colaborador {
-   private String id;
-   private String username;
-    private String imageURL;
-    private String status;
-    private String search;
-    private String bio;
 
+    String id;
+    String name;
+    String ape;
+    String dni;
+    String telf;
+    String email;
+    String image;
 
     public Colaborador() {
     }
 
-    public Colaborador(String id, String username, String imageURL, String status, String search, String bio) {
+    public Colaborador(String id, String name, String ape, String dni, String telf, String email, String image) {
         this.id = id;
-        this.username = username;
-        this.imageURL = imageURL;
-        this.status = status;
-        this.search = search;
-        this.bio = bio;
+        this.name = name;
+        this.ape = ape;
+        this.dni = dni;
+        this.telf = telf;
+        this.email = email;
+        this.image = image;
+    }
+
+    public Colaborador(String id, String name, String ape, String dni, String telef, String email) {
+        this.id = id;
+        this.name = name;
+        this.ape = ape;
+        this.dni = dni;
+        this.telf = telef;
+        this.email = email;
     }
 
     public String getId() {
@@ -29,43 +40,51 @@ public class Colaborador {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getApe() {
+        return ape;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setApe(String ape) {
+        this.ape = ape;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDni() {
+        return dni;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
-    public String getSearch() {
-        return search;
+    public String getTelf() {
+        return telf;
     }
 
-    public void setSearch(String search) {
-        this.search = search;
+    public void setTelf(String telf) {
+        this.telf = telf;
     }
 
-    public String getBio() {
-        return bio;
+    public String getEmail() {
+        return email;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

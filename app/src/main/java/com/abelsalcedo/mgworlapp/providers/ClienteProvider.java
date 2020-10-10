@@ -17,8 +17,21 @@ public class ClienteProvider {
 
     public Task<Void> create(Cliente cliente) {
         Map<String, Object> map = new HashMap<>();
-        map.put("name", cliente.getUsername());
+        map.put("name", cliente.getName());
+        map.put("ape", cliente.getApe());
+        map.put("telef", cliente.getTelf());
+        map.put("email", cliente.getEmail());
+        map.put("status", "offline");
+        map.put("imageurl", "default");
         return mDatabase.child(cliente.getId()).setValue(map);
+    }
+
+    public Task<Void> update(Cliente cliente) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", cliente.getName());
+//        map.put("image", cliente.getImage());
+//        map.put("gustos", cliente.getGustos());
+        return mDatabase.child(cliente.getId()).updateChildren(map);
     }
 
     public DatabaseReference getCliente(String idCliente) {

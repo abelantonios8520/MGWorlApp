@@ -15,59 +15,58 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.cliente.IndividualActivity"></activity>
-        <activity
-            android:name=".ViewProfileActivity"
-            android:parentActivityName=".BaseActivity"
-            tools:ignore="Instantiatable" />
-        <activity android:name=".activities.colaborador.MapColaboradorActivity" />
-        <activity android:name=".activities.cliente.MapClienteActivity" />
+        <activity android:name=".activities.ForgotPassActivity"></activity>
+        <activity android:name=".activities.colaborador.UpdateProfileColaboradorActivity" />
+        <activity android:name=".activities.colaborador.NotificationBookingActivity" />
+        <activity android:name=".activities.colaborador.MapColaboradorBookingActivity" />
+        <activity android:name=".activities.colaborador.HistoryBookingDetailColaboradorActivity" />
+        <activity android:name=".activities.colaborador.HistoryBookingColaboradorActivity" />
+        <activity android:name=".activities.colaborador.CalificationClienteActivity" />
+        <activity android:name=".activities.colaborador.buscarClientesActivity" />
         <activity android:name=".activities.cliente.UpdateProfileActivity" />
+        <activity android:name=".activities.cliente.RequestColaboradorActivity" />
+        <activity android:name=".activities.cliente.MapClienteBookingActivity" />
+        <activity android:name=".activities.cliente.HistoryBookingDetailClienteActivity" />
+        <activity android:name=".activities.cliente.HistoryBookingClienteActivity" />
         <activity android:name=".activities.cliente.DetailRequestActivity" />
+        <activity android:name=".activities.cliente.CalificationColaboradorActivity" />
+        <activity android:name=".activities.colaborador.MapColaboradorActivity" />
         <activity android:name=".activities.colaborador.RegisterColaboradorActivity" />
+        <activity android:name=".activities.cliente.MapClienteActivity" />
         <activity
-            android:name=".ResetPasswordActivity"
-            android:parentActivityName=".LoginActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:name=".activities.LoginActivity"
+            android:parentActivityName=".activities.SelectOptionAuthActivity" />
         <activity
-            android:name=".LoginActivity"
-            android:parentActivityName=".SelectOptionAuthActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".MessageActivity" />
+            android:name=".activities.cliente.RegisterActivity"
+            android:parentActivityName=".activities.SelectOptionAuthActivity" />
         <activity
-            android:name=".RegisterActivity"
-            android:parentActivityName=".SelectOptionAuthActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".MainActivity" />
+            android:name=".activities.SelectOptionAuthActivity"
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".SelectOptionAuthActivity"
-            android:parentActivityName="MainActivity" />
-        <activity
-            android:name=".activities.MainActivityMapa">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-
-        <service
-            android:name=".Notifications.MyFirebaseIdService"
-            android:enabled="true"
-            android:exported="true">
+            android:name=".activities.MainActivity"
+            android:parentActivityName=".activities.splashActivity" />
+        <activity android:name=".activities.splashActivity">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-        <service
-            android:name=".Notifications.MyFirebaseMessaging"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- <service -->
+        <!-- android:name=".Notifications.MyFirebaseIdService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.INSTANCE_ID_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <!-- <service -->
+        <!-- android:name=".Notifications.MyFirebaseMessaging" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />

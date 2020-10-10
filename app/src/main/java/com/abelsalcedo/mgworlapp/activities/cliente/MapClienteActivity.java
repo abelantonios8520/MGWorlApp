@@ -32,7 +32,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.abelsalcedo.mgworlapp.MainActivity;
 import com.abelsalcedo.mgworlapp.providers.ClienteProvider;
 import com.abelsalcedo.mgworlapp.providers.TokenProvider;
 import com.firebase.geofire.GeoLocation;
@@ -61,7 +60,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.abelsalcedo.mgworlapp.R;
-import com.abelsalcedo.mgworlapp.activities.MainActivityMapa;
+import com.abelsalcedo.mgworlapp.activities.MainActivity;
 import com.abelsalcedo.mgworlapp.includes.MyToolbar;
 import com.abelsalcedo.mgworlapp.providers.AuthProvider;
 import com.abelsalcedo.mgworlapp.providers.GeofireProvider;
@@ -262,9 +261,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             intent.putExtra("destination", mDestination);
             startActivity(intent);
         } else {
-            Toast.makeText(MapClienteActivity.this, "Tiene que poner el lugar de recogida y destino", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MapClienteActivity.this, MainActivityMapa.class);
-            startActivity(intent);
+            Toast.makeText(this, "Debe seleccionar el lugar de recogida y el destino", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -526,6 +523,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             startActivity(intent);
         }
         if (item.getItemId() == R.id.action_history) {
+//            Intent intent = new Intent(MapClienteActivity.this, HistoryBookingClienteActivity.class);
             Intent intent = new Intent(MapClienteActivity.this, MainActivity.class);
             startActivity(intent);
         }
@@ -540,7 +538,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
 
     void logout() {
         mAuthProvider.logout();
-        Intent intent = new Intent(MapClienteActivity.this, MainActivityMapa.class);
+        Intent intent = new Intent(MapClienteActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

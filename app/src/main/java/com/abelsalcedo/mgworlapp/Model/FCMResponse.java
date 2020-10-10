@@ -1,7 +1,6 @@
 package com.abelsalcedo.mgworlapp.Model;
 
 import java.util.ArrayList;
-
 public class FCMResponse {
     private long multicast_id;
     private int success;
@@ -56,4 +55,5 @@ public class FCMResponse {
     public void setResults(ArrayList<Object> results) {
         this.results = results;
     }
+
 }

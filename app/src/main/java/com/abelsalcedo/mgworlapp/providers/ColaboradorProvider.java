@@ -17,7 +17,11 @@ public class ColaboradorProvider {
 
     public Task<Void> create(Colaborador colaborador) {
         Map<String, Object> map = new HashMap<>();
-        map.put("name", colaborador.getUsername());
+        map.put("name", colaborador.getName());
+        map.put("ape", colaborador.getApe());
+        map.put("dni", colaborador.getDni());
+        map.put("telef", colaborador.getTelf());
+        map.put("email", colaborador.getEmail());
         return mDatabase.child(colaborador.getId()).setValue(colaborador);
     }
 
@@ -27,8 +31,12 @@ public class ColaboradorProvider {
 
     public Task<Void> update(Colaborador colaborador) {
         Map<String, Object> map = new HashMap<>();
-        map.put("name", colaborador.getUsername());
-
+        map.put("name", colaborador.getName());
+        map.put("image", colaborador.getImage());
+        map.put("ape", colaborador.getApe());
+        map.put("telef", colaborador.getTelf());
         return mDatabase.child(colaborador.getId()).updateChildren(map);
     }
+
 }
+

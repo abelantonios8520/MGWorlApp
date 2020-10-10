@@ -1,6 +1,6 @@
 package com.abelsalcedo.mgworlapp.providers;
 
-import com.abelsalcedo.mgworlapp.Model.TokenMG;
+import com.abelsalcedo.mgworlapp.Model.Token;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -12,23 +12,22 @@ public class TokenProvider {
     DatabaseReference mDatabase;
 
     public TokenProvider() {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("TokenMapa");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Tokens");
     }
 
-    public void create(final String idUser) {
-        if (idUser == null) return;
+    public void create(final String idUser){
+        if(idUser == null) return;
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
-                TokenMG token = new TokenMG(instanceIdResult.getToken());
+                Token token = new Token(instanceIdResult.getToken());
                 mDatabase.child(idUser).setValue(token);
             }
         });
     }
 
-    public DatabaseReference getTokenMG(String idUser) {
+    public DatabaseReference getToken(String idUser) {
         return mDatabase.child(idUser);
     }
+
 }
-
-
