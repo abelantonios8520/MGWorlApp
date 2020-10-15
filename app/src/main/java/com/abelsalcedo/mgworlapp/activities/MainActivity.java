@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.abelsalcedo.mgworlapp.R;
-import com.abelsalcedo.mgworlapp.activities.cliente.MapClienteActivity;
 import com.abelsalcedo.mgworlapp.activities.colaborador.MapColaboradorActivity;
+import com.abelsalcedo.mgworlapp.activities.cliente.pedidoActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             String user = mPref.getString("user", "");
             if (user.equals("cliente")) {
-                Intent intent = new Intent(MainActivity.this, MapClienteActivity.class);
+                Intent intent = new Intent(MainActivity.this, pedidoActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
