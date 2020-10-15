@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.abelsalcedo.mgworlapp.activities.cliente.pedidoActivity;
 import com.abelsalcedo.mgworlapp.R;
 import com.abelsalcedo.mgworlapp.includes.MyToolbar;
 import com.abelsalcedo.mgworlapp.Model.Cliente;
@@ -110,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(RegisterActivity.this, pedidoActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, PedidoActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 } else {

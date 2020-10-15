@@ -10,7 +10,7 @@ public class Cliente {
     private String imageURL;
     private String pedido;
 
-    public Cliente() {
+    public Cliente(String id, String name, String ape, String telef, String email, String status, String imageurl) {
     }
 
     public Cliente(String id, String name, String ape, String telf, String email, String status, String imageURL, String pedido) {

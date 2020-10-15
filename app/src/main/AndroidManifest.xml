@@ -34,8 +34,13 @@
         <activity android:name=".activities.colaborador.RegisterColaboradorActivity" />
         <activity android:name=".activities.cliente.MapClienteActivity" />
         <activity
-            android:name=".activities.cliente.pedidoActivity"
+            android:name=".activities.cliente.PedidoActivity"
             android:parentActivityName=".activities.LoginActivity" />
+
+        <activity
+            android:name=".activities.colaborador.Venta_Colaborador"
+            android:parentActivityName=".activities.LoginActivity" />
+
         <activity
             android:name=".activities.LoginActivity"
             android:parentActivityName=".activities.SelectOptionAuthActivity" />
