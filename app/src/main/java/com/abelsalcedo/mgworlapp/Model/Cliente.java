@@ -8,11 +8,12 @@ public class Cliente {
     String email;
     private String status;
     private String imageURL;
+    private String pedido;
 
     public Cliente() {
     }
 
-    public Cliente(String id, String name, String ape, String telf, String email, String status, String imageURL) {
+    public Cliente(String id, String name, String ape, String telf, String email, String status, String imageURL, String pedido) {
         this.id = id;
         this.name = name;
         this.ape = ape;
@@ -20,6 +21,7 @@ public class Cliente {
         this.email = email;
         this.status = status;
         this.imageURL = imageURL;
+        this.pedido = pedido;
     }
 
     public String getId() {
@@ -77,4 +79,8 @@ public class Cliente {
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
+
+    public String getPedido(){return pedido;}
+
+    public void setPedido(String pedido){this.pedido = pedido;}
 }

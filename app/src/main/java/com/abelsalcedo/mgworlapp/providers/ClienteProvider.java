@@ -29,8 +29,8 @@ public class ClienteProvider {
     public Task<Void> update(Cliente cliente) {
         Map<String, Object> map = new HashMap<>();
         map.put("name", cliente.getName());
-//        map.put("image", cliente.getImage());
-//        map.put("gustos", cliente.getGustos());
+        map.put("image", cliente.getImageURL());
+        map.put("pedido", cliente.getPedido());
         return mDatabase.child(cliente.getId()).updateChildren(map);
     }
 
