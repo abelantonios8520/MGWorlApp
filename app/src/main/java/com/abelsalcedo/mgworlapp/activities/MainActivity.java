@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.abelsalcedo.mgworlapp.R;
 import com.abelsalcedo.mgworlapp.activities.colaborador.MapColaboradorActivity;
 import com.abelsalcedo.mgworlapp.activities.cliente.PedidoActivity;
+import com.abelsalcedo.mgworlapp.activities.colaborador.Venta_Colaborador;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             else {
-                Intent intent = new Intent(MainActivity.this, MapColaboradorActivity.class);
+                Intent intent = new Intent(MainActivity.this, Venta_Colaborador.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.abelsalcedo.mgworlapp.R;
 import com.abelsalcedo.mgworlapp.activities.colaborador.MapColaboradorActivity;
+import com.abelsalcedo.mgworlapp.activities.colaborador.Venta_Colaborador;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -133,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         if (dataSnapshot.exists()) {
                                             Toast.makeText(LoginActivity.this, "Login exitoso emprendedor", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(LoginActivity.this, MapColaboradorActivity.class);
+                                            Intent intent = new Intent(LoginActivity.this, Venta_Colaborador.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(intent);
                                         } else {

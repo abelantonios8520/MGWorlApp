@@ -111,7 +111,7 @@ public class RegisterColaboradorActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     //Toast.makeText(RegisterDriverActivity.this, "El registro se realizo exitosamente", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterColaboradorActivity.this, MapColaboradorActivity.class);
+                    Intent intent = new Intent(RegisterColaboradorActivity.this, Venta_Colaborador.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     Toast.makeText(RegisterColaboradorActivity.this, "El registro se realizo exitosamente", Toast.LENGTH_SHORT).show();
                     startActivity(intent);

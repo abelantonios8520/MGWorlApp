@@ -16,6 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivityChat"></activity>
+        <activity android:name=".activities.colaborador.Venta_Colaborador"/>
+        <activity android:name=".activities.colaborador.MapColaboradorActivity"/>
         <activity android:name=".activities.ForgotPassActivity" />
         <activity android:name=".activities.colaborador.UpdateProfileColaboradorActivity" />
         <activity android:name=".activities.colaborador.NotificationBookingActivity" />
@@ -31,7 +33,6 @@
         <activity android:name=".activities.cliente.HistoryBookingClienteActivity" />
         <activity android:name=".activities.cliente.DetailRequestActivity" />
         <activity android:name=".activities.cliente.CalificationColaboradorActivity" />
-        <activity android:name=".activities.colaborador.MapColaboradorActivity" />
         <activity android:name=".activities.colaborador.RegisterColaboradorActivity" />
         <activity
             android:name=".activities.cliente.MapClienteActivity"
