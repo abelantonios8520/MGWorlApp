@@ -32,9 +32,10 @@
         <activity android:name=".activities.cliente.CalificationColaboradorActivity" />
         <activity android:name=".activities.colaborador.MapColaboradorActivity" />
         <activity android:name=".activities.colaborador.RegisterColaboradorActivity" />
-        <activity android:name=".activities.cliente.MapClienteActivity" />
+        <activity android:name=".activities.cliente.MapClienteActivity"
+            android:parentActivityName=".activities.cliente.PedidoActivity"/>
         <activity
-            android:name=".activities.cliente.pedidoActivity"
+            android:name=".activities.cliente.PedidoActivity"
             android:parentActivityName=".activities.LoginActivity" />
         <activity
             android:name=".activities.LoginActivity"

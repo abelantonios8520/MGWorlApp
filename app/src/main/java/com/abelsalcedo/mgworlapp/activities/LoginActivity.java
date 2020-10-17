@@ -24,7 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.abelsalcedo.mgworlapp.activities.cliente.pedidoActivity;
+import com.abelsalcedo.mgworlapp.activities.cliente.PedidoActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
 
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                                         if (dataSnapshot.exists()) {
                                             //mostarToastDown("ATENCION", "Este no es un usuario permitido");
                                             Toast.makeText(LoginActivity.this, "Login exitoso cliente", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(LoginActivity.this, pedidoActivity.class);
+                                            Intent intent = new Intent(LoginActivity.this, PedidoActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(intent);
                                         } else {

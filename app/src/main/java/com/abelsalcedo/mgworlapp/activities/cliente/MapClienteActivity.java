@@ -179,75 +179,6 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
 
     }
 
-    private void showDialog() {
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Escriba un pedido");
-        dialog.setMessage("Pide lo que mas te gusta");
-
-        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-
-        View reg_layout = inflater.inflate(R.layout.activity_pedir_gustos, null);
-
-
-        final EditText txtGustos = reg_layout.findViewById(R.id.txtGustos);
-        final TextView mTextViewNombrePedidos = reg_layout.findViewById(R.id.textViewNombrePedidos);
-
-        dialog.setView(reg_layout);
-
-        //boton de ajuste
-
-        dialog.setPositiveButton("ENVIAR", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //verificar validación
-
-                if (TextUtils.isEmpty(txtGustos.getText().toString().trim())) {
-                    Toast.makeText(MapClienteActivity.this, "Por favor escriba lo que quiera comer...", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-                    DatabaseReference myRef = database.getReference();
-
-                    myRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Object value = dataSnapshot.getValue();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(MapClienteActivity.this, "Error al leer el valor.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                    if (mAuthProvider.existSession()) {
-
-
-                        myRef.child("Users/Pedidos").child(txtGustos.getText().toString().trim()).child("gustos").setValue(txtGustos.getText().toString().trim());
-
-
-                        Toast.makeText(MapClienteActivity.this, "Gracias por elegirnos", Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        Toast.makeText(MapClienteActivity.this, "No se puede crear el pedido", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-
-            }
-        });
-
-        dialog.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
 
     private void requestColaborador() {
 
@@ -528,11 +459,6 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             startActivity(intent);
         }
 
-        if (item.getItemId() == R.id.action_Pedir) {
-            showDialog();
-            // Intent intent = new Intent(MapClienteActivity.this, BuscarPlatos.class);
-            // startActivity(intent);
-        }
         return super.onOptionsItemSelected(item);
     }
 

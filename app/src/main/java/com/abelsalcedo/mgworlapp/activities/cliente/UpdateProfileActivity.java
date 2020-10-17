@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,15 +16,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abelsalcedo.mgworlapp.Model.Cliente;
 import com.abelsalcedo.mgworlapp.R;
 import com.abelsalcedo.mgworlapp.includes.MyToolbar;
 import com.abelsalcedo.mgworlapp.providers.AuthProvider;
 import com.abelsalcedo.mgworlapp.providers.ClienteProvider;
 import com.abelsalcedo.mgworlapp.providers.ImagesProvider;
 import com.abelsalcedo.mgworlapp.utils.FileUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 
@@ -61,7 +67,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         mImagesProvider = new ImagesProvider("cliente_image");
 
         mProgressDialog = new ProgressDialog(this);
-        getClienteInfo();
+//        getClienteInfo();
 
         mImageViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,22 +103,22 @@ public class UpdateProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void getClienteInfo() {
-        mClienteProvider.getCliente(mAuthProvider.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    String name = dataSnapshot.child("name").getValue().toString();
-                    mTextViewName.setText(name);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
+//    private void getClienteInfo() {
+//        mClienteProvider.getCliente(mAuthProvider.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    String name = dataSnapshot.child("name").getValue().toString();
+//                    mTextViewName.setText(name);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
     private void updateProfile() {
         mName = mTextViewName.getText().toString();
@@ -121,38 +127,38 @@ public class UpdateProfileActivity extends AppCompatActivity {
             mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.show();
 
-//            saveImage();
+            saveImage();
         } else {
             Toast.makeText(this, "Ingresa la imagen y el nombre", Toast.LENGTH_SHORT).show();
         }
     }
 
-//    private void saveImage() {
-//       mImagesProvider.saveImage(UpdateProfileActivity.this, mImageFile, mAuthProvider.getId()).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    mImagesProvider.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                        @Override
-//                        public void onSuccess(Uri uri) {
-//                            String image = uri.toString();
-//                            Cliente cliente = new Cliente();
-////                            cliente.setImage(image);
-//                            cliente.setName(mName);
-//                            cliente.setId(mAuthProvider.getId());
-//                            mClienteProvider.update(cliente).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                    mProgressDialog.dismiss();
-//                                    Toast.makeText(UpdateProfileActivity.this, "Su información se actualizo correctamente", Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
-//                        }
-//                    });
-//                } else {
-//                    Toast.makeText(UpdateProfileActivity.this, "Hubo un error al subir la imagen", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//    }
+    private void saveImage() {
+       mImagesProvider.saveImage(UpdateProfileActivity.this, mImageFile, mAuthProvider.getId()).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    mImagesProvider.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String image = uri.toString();
+                            Cliente cliente = new Cliente();
+                            cliente.setImageURL(image);
+                            cliente.setName(mName);
+                            cliente.setId(mAuthProvider.getId());
+                            mClienteProvider.update(cliente).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    mProgressDialog.dismiss();
+                                    Toast.makeText(UpdateProfileActivity.this, "Su información se actualizo correctamente", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    Toast.makeText(UpdateProfileActivity.this, "Hubo un error al subir la imagen", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }

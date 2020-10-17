@@ -9,11 +9,12 @@ public class Colaborador {
     String telf;
     String email;
     String image;
+    String venta;
 
     public Colaborador() {
     }
 
-    public Colaborador(String id, String name, String ape, String dni, String telf, String email, String image) {
+    public Colaborador(String id, String name, String ape, String dni, String telf, String email, String image, String venta) {
         this.id = id;
         this.name = name;
         this.ape = ape;
@@ -21,6 +22,7 @@ public class Colaborador {
         this.telf = telf;
         this.email = email;
         this.image = image;
+        this.venta = venta;
     }
 
     public Colaborador(String id, String name, String ape, String dni, String telef, String email) {
@@ -86,5 +88,13 @@ public class Colaborador {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getVenta() {
+        return venta;
+    }
+
+    public void setVenta(String venta) {
+        this.venta = venta;
     }
 }

@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.abelsalcedo.mgworlapp.activities.cliente.pedidoActivity;
+import com.abelsalcedo.mgworlapp.activities.cliente.PedidoActivity;
 import com.abelsalcedo.mgworlapp.R;
 import com.abelsalcedo.mgworlapp.includes.MyToolbar;
 import com.abelsalcedo.mgworlapp.Model.Cliente;
@@ -40,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String imageurl;
     private String status;
     private String bio;
+    private String pedido;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (!name.isEmpty() && !ape.isEmpty() && !telef.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
             if (password.length() >= 6) {
                 mDialog.show();
-                register(name, ape, telef, email, password, status, imageurl);
+                register(name, ape, telef, email, password, status, imageurl, pedido);
             } else {
                 Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
             }
@@ -88,14 +89,14 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    void register(final String name, final String ape, final String telef, final String email, String password, final String status, final  String imageurl) {
+    void register(final String name, final String ape, final String telef, final String email, String password, final String status, final  String imageurl, final String pedido) {
         mAuthProvider.register(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 mDialog.hide();
                 if (task.isSuccessful()) {
                     String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    Cliente cliente = new Cliente(id, name, ape, telef, email, status, imageurl);
+                    Cliente cliente = new Cliente(id, name, ape, telef, email, status, imageurl, pedido);
                     create(cliente);
                     Toast.makeText(RegisterActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
                 } else {
@@ -110,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(RegisterActivity.this, pedidoActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, PedidoActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 } else {
