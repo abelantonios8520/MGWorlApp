@@ -10,7 +10,7 @@ public class Cliente {
     private String imageURL;
     private String pedido;
 
-    public Cliente(String id, String name, String ape, String telef, String email, String status, String imageurl) {
+    public Cliente(String id, String name, String ape, String telef, String email, String status) {
     }
 
     public Cliente(String id, String name, String ape, String telf, String email, String status, String imageURL, String pedido) {
@@ -22,6 +22,10 @@ public class Cliente {
         this.status = status;
         this.imageURL = imageURL;
         this.pedido = pedido;
+    }
+
+    public Cliente() {
+
     }
 
     public String getId() {

@@ -40,7 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
     private String imageurl;
     private String status;
     private String bio;
-    private String pedido;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (!name.isEmpty() && !ape.isEmpty() && !telef.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
             if (password.length() >= 6) {
                 mDialog.show();
-                register(name, ape, telef, email, password, status, imageurl, pedido);
+                register(name, ape, telef, email, password, status);
             } else {
                 Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
             }
@@ -89,14 +88,14 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    void register(final String name, final String ape, final String telef, final String email, String password, final String status, final  String imageurl, final String pedido) {
+    void register(final String name, final String ape, final String telef, final String email, String password, final String status) {
         mAuthProvider.register(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 mDialog.hide();
                 if (task.isSuccessful()) {
                     String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    Cliente cliente = new Cliente(id, name, ape, telef, email, status, imageurl, pedido);
+                    Cliente cliente = new Cliente(id, name, ape, telef, email, status);
                     create(cliente);
                     Toast.makeText(RegisterActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
                 } else {

@@ -124,10 +124,10 @@
         android:id="@+id/circleImagePedio"
         android:layout_width="40dp"
         android:layout_height="38dp"
-        android:layout_gravity="left|top"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/ic_arrow_back_black"
-        app:civ_circle_background_color="@color/colorWhite" />
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_arrow_img"
+        app:civ_circle_background_color="@color/green" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

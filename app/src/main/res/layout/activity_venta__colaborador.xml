@@ -22,14 +22,9 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/fotoPerfil"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center|top"
-                app:civ_border_width="5dp"
-                android:layout_marginTop="120dp"
-                app:civ_border_color="#F0F0F0"
-                android:src="@drawable/man"
-                />
+                android:layout_width="48sp"
+                android:layout_height="48sp"
+                android:src="@drawable/man" />
 
             <TextView
                 android:id="@+id/saludo"

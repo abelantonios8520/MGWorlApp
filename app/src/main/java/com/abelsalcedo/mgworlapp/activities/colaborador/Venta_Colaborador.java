@@ -11,7 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.abelsalcedo.mgworlapp.R;
+import com.abelsalcedo.mgworlapp.activities.ForgotPassActivity;
+import com.abelsalcedo.mgworlapp.activities.LoginActivity;
 import com.abelsalcedo.mgworlapp.providers.AuthProvider;
+import com.abelsalcedo.mgworlapp.providers.ClienteProvider;
 import com.abelsalcedo.mgworlapp.providers.ColaboradorProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +33,7 @@ public class Venta_Colaborador extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_venta_colaborador);
+        setContentView(R.layout.activity_venta__colaborador);
 
         mColaboradorProvider = new ColaboradorProvider();
         mAuthProvider = new AuthProvider();
