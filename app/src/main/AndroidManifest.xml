@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MainActivityChat"></activity>
         <activity android:name=".activities.ForgotPassActivity" />
         <activity android:name=".activities.colaborador.UpdateProfileColaboradorActivity" />
         <activity android:name=".activities.colaborador.NotificationBookingActivity" />
@@ -32,8 +33,9 @@
         <activity android:name=".activities.cliente.CalificationColaboradorActivity" />
         <activity android:name=".activities.colaborador.MapColaboradorActivity" />
         <activity android:name=".activities.colaborador.RegisterColaboradorActivity" />
-        <activity android:name=".activities.cliente.MapClienteActivity"
-            android:parentActivityName=".activities.cliente.PedidoActivity"/>
+        <activity
+            android:name=".activities.cliente.MapClienteActivity"
+            android:parentActivityName=".activities.cliente.PedidoActivity" />
         <activity
             android:name=".activities.cliente.PedidoActivity"
             android:parentActivityName=".activities.LoginActivity" />
