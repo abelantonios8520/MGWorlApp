@@ -94,6 +94,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
     private LatLng mCurrentLatLng;
 
     private List<Marker> mColaboradoresMarkers = new ArrayList<>();
+    private List<Marker> mClienteMarkers = new ArrayList<>();
 
     private boolean mIsFirstTime = true;
 
@@ -134,6 +135,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
                     if (mIsFirstTime) {
                         mIsFirstTime = false;
                         getActiveColaboradores();
+                        getActiveClientes();
                         limitSearch();
                     }
                 }
@@ -324,6 +326,65 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             }
         });
     }
+
+//============== Inicio ==================
+    private void getActiveClientes() {
+        mGeofireProvider.getActiveClientes(mCurrentLatLng, 10).addGeoQueryEventListener(new GeoQueryEventListener() {
+            @Override
+            public void onKeyEntered(String key, GeoLocation location) {
+                // AÑADIREMOS LOS MARCADORES DE LOS EMPRENDEDORES QUE SE CONECTEN EN LA APLICACION
+
+                for (Marker marker2 : mClienteMarkers) {
+                    if (marker2.getTag() != null) {
+                        if (marker2.getTag().equals(key)) {
+                            return;
+                        }
+                    }
+                }
+
+                LatLng clienteLatLng = new LatLng(location.latitude, location.longitude);
+                Marker marker2 = mMap.addMarker(new MarkerOptions().position(clienteLatLng).title("Tu pedido es: ").icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_my_location)));
+                marker2.setTag(key);
+                mClienteMarkers.add(marker2);
+            }
+
+            @Override
+            public void onKeyExited(String key) {
+                for (Marker marker2 : mClienteMarkers) {
+                    if (marker2.getTag() != null) {
+                        if (marker2.getTag().equals(key)) {
+                            marker2.remove();
+                            mClienteMarkers.remove(marker2);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+                // ACTUALIZAR LA POSICION DE CADA EMPRENDEDOR
+                for (Marker marker2 : mClienteMarkers) {
+                    if (marker2.getTag() != null) {
+                        if (marker2.getTag().equals(key)) {
+                            marker2.setPosition(new LatLng(location.latitude, location.longitude));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
+
+            }
+        });
+    }
+//======    Final de Clientes=========
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

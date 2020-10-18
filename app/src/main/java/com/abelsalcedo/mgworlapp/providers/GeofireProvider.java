@@ -32,6 +32,22 @@ public class GeofireProvider {
         return geoQuery;
     }
 
+//    ====================
+    public GeoQuery getActiveClientes(LatLng latLng, double radius) {
+        GeoQuery geoQuery = mGeofire.queryAtLocation(new GeoLocation(latLng.latitude, latLng.longitude), radius);
+        geoQuery.removeAllListeners();
+        return geoQuery;
+    }
+
+    public DatabaseReference getClienteLocation(String idCliente) {
+        return mDatabase.child(idCliente).child("l");
+    }
+
+    public DatabaseReference isClienteWorking(String idCliente) {
+        return FirebaseDatabase.getInstance().getReference().child("cliente_working").child(idCliente);
+    }
+//    ================
+
     public DatabaseReference getColaboradorLocation(String idColaborador) {
         return mDatabase.child(idColaborador).child("l");
     }

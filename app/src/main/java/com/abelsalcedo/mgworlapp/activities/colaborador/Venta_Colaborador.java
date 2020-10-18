@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.abelsalcedo.mgworlapp.Model.Colaborador;
 import com.abelsalcedo.mgworlapp.R;
+import com.abelsalcedo.mgworlapp.activities.cliente.MapClienteActivity;
+import com.abelsalcedo.mgworlapp.activities.cliente.PedidoActivity;
 import com.abelsalcedo.mgworlapp.providers.AuthProvider;
 import com.abelsalcedo.mgworlapp.providers.ColaboradorProvider;
 import com.abelsalcedo.mgworlapp.providers.ImagesProvider;
@@ -64,7 +66,7 @@ public class Venta_Colaborador extends AppCompatActivity {
         mEnviarVenta = findViewById(R.id.EnviarVenta);
         mColaboradorName = findViewById(R.id.Colaborador);
         mtxtVenta = findViewById(R.id.txtVenta);
-        mCircleImageBack = findViewById(R.id.circleImageBack);
+        mCircleImageBack = findViewById(R.id.circleImageVenta);
 
         mColaboradorProvider = new ColaboradorProvider();
         mAuthProvider = new AuthProvider();
@@ -72,6 +74,14 @@ public class Venta_Colaborador extends AppCompatActivity {
 
         mProgressDialog = new ProgressDialog(this);
         getColaboradorInfo();
+
+        mCircleImageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Venta_Colaborador.this, MapColaboradorActivity.class);
+                startActivity(intent);
+            }
+        });
 
         mfotoPerfilVenta.setOnClickListener(new View.OnClickListener() {
             @Override
