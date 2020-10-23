@@ -54,7 +54,7 @@ public class PedidoActivity extends AppCompatActivity {
     private final int GALLERY_REQUEST = 1;
     private ProgressDialog mProgressDialog;
     private String mName;
-    private String mPedir;
+    public static String mPedir = "Lomo saltado";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -25,6 +25,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -49,6 +51,9 @@ import com.abelsalcedo.mgworlapp.providers.AuthProvider;
 import com.abelsalcedo.mgworlapp.providers.GeofireProvider;
 import com.abelsalcedo.mgworlapp.providers.TokenProvider;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MapColaboradorActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -59,10 +64,11 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
 
     private LocationRequest mLocationRequest;
     private FusedLocationProviderClient mFusedLocation;
-
+    private List<Marker> mClienteMarkers = new ArrayList<>();
     private final static int LOCATION_REQUEST_CODE = 1;
     private final static int SETTINGS_REQUEST_CODE = 2;
 
+    private boolean mIsFirstTime = true;
     private Marker mMarker;
 
     private Button mButtonConnect;
@@ -102,10 +108,16 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
 
                     updateLocation();
                     Log.d("ENTRO", "ACTUALIZANDO POSICION");
+
+                    if (mIsFirstTime) {
+                        mIsFirstTime = false;
+                        getActiveClientes();
+                    }
                 }
             }
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,6 +235,65 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
             }
         }
     }
+
+//            ============== Inicio ==================
+    private void getActiveClientes() {
+        mGeofireProvider.getActiveClientes(mCurrentLatLng, 10).addGeoQueryEventListener(new GeoQueryEventListener() {
+            @Override
+            public void onKeyEntered(String key, GeoLocation location) {
+                // AÑADIREMOS LOS MARCADORES DE LOS EMPRENDEDORES QUE SE CONECTEN EN LA APLICACION
+
+                for (Marker marker2 : mClienteMarkers) {
+                    if (marker2.getTag() != null) {
+                        if (marker2.getTag().equals(key)) {
+                            return;
+                        }
+                    }
+                }
+
+                LatLng clienteLatLng = new LatLng(location.latitude, location.longitude);
+                Marker marker2 = mMap.addMarker(new MarkerOptions().position(clienteLatLng).title("Tu pedido es: ").icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_my_location)));
+                marker2.setTag(key);
+                mClienteMarkers.add(marker2);
+            }
+
+            @Override
+            public void onKeyExited(String key) {
+                for (Marker marker2 : mClienteMarkers) {
+                    if (marker2.getTag() != null) {
+                        if (marker2.getTag().equals(key)) {
+                            marker2.remove();
+                            mClienteMarkers.remove(marker2);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+                // ACTUALIZAR LA POSICION DE CADA EMPRENDEDOR
+                for (Marker marker2 : mClienteMarkers) {
+                    if (marker2.getTag() != null) {
+                        if (marker2.getTag().equals(key)) {
+                            marker2.setPosition(new LatLng(location.latitude, location.longitude));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
+
+            }
+        });
+    }
+//======    Final de Clientes=========
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -16,6 +16,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         />
 
+
     <Button
         android:id="@+id/btnConnect"
         android:layout_width="match_parent"

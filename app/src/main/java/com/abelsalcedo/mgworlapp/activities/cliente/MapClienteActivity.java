@@ -21,17 +21,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.abelsalcedo.mgworlapp.providers.ClienteProvider;
 import com.abelsalcedo.mgworlapp.providers.TokenProvider;
 import com.firebase.geofire.GeoLocation;
@@ -57,21 +52,18 @@ import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.abelsalcedo.mgworlapp.R;
 import com.abelsalcedo.mgworlapp.activities.MainActivity;
 import com.abelsalcedo.mgworlapp.includes.MyToolbar;
 import com.abelsalcedo.mgworlapp.providers.AuthProvider;
 import com.abelsalcedo.mgworlapp.providers.GeofireProvider;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.SphericalUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import com.abelsalcedo.mgworlapp.activities.cliente.PedidoActivity;
 
 public class MapClienteActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -94,7 +86,6 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
     private LatLng mCurrentLatLng;
 
     private List<Marker> mColaboradoresMarkers = new ArrayList<>();
-    private List<Marker> mClienteMarkers = new ArrayList<>();
 
     private boolean mIsFirstTime = true;
 
@@ -113,8 +104,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
     private GoogleMap.OnCameraIdleListener mCameraListener;
 
     private Button mButtonRequestColaborador;
-
-    private TextView mTextViewNamePedidos;
+    private String mPedir = PedidoActivity.mPedir;
 
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
@@ -134,8 +124,8 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
 
                     if (mIsFirstTime) {
                         mIsFirstTime = false;
+//                        mPedir = "Aji de gallina";
                         getActiveColaboradores();
-                        getActiveClientes();
                         limitSearch();
                     }
                 }
@@ -285,7 +275,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
                 }
 
                 LatLng colaboradorLatLng = new LatLng(location.latitude, location.longitude);
-                Marker marker = mMap.addMarker(new MarkerOptions().position(colaboradorLatLng).title("Emprendedor disponible").icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_pin_red)));
+                Marker marker = mMap.addMarker(new MarkerOptions().position(colaboradorLatLng).title(retorno(mPedir)).icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_pin_red)));
                 marker.setTag(key);
                 mColaboradoresMarkers.add(marker);
             }
@@ -326,65 +316,6 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             }
         });
     }
-
-//============== Inicio ==================
-    private void getActiveClientes() {
-        mGeofireProvider.getActiveClientes(mCurrentLatLng, 10).addGeoQueryEventListener(new GeoQueryEventListener() {
-            @Override
-            public void onKeyEntered(String key, GeoLocation location) {
-                // AÑADIREMOS LOS MARCADORES DE LOS EMPRENDEDORES QUE SE CONECTEN EN LA APLICACION
-
-                for (Marker marker2 : mClienteMarkers) {
-                    if (marker2.getTag() != null) {
-                        if (marker2.getTag().equals(key)) {
-                            return;
-                        }
-                    }
-                }
-
-                LatLng clienteLatLng = new LatLng(location.latitude, location.longitude);
-                Marker marker2 = mMap.addMarker(new MarkerOptions().position(clienteLatLng).title("Tu pedido es: ").icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_my_location)));
-                marker2.setTag(key);
-                mClienteMarkers.add(marker2);
-            }
-
-            @Override
-            public void onKeyExited(String key) {
-                for (Marker marker2 : mClienteMarkers) {
-                    if (marker2.getTag() != null) {
-                        if (marker2.getTag().equals(key)) {
-                            marker2.remove();
-                            mClienteMarkers.remove(marker2);
-                            return;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onKeyMoved(String key, GeoLocation location) {
-                // ACTUALIZAR LA POSICION DE CADA EMPRENDEDOR
-                for (Marker marker2 : mClienteMarkers) {
-                    if (marker2.getTag() != null) {
-                        if (marker2.getTag().equals(key)) {
-                            marker2.setPosition(new LatLng(location.latitude, location.longitude));
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onGeoQueryReady() {
-
-            }
-
-            @Override
-            public void onGeoQueryError(DatabaseError error) {
-
-            }
-        });
-    }
-//======    Final de Clientes=========
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -532,5 +463,11 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
 
     void generateToken() {
         mTokenProvider.create(mAuthProvider.getId());
+    }
+
+    protected String retorno(String mPedir){
+        String p;
+        p = mPedir;
+        return p;
     }
 }
