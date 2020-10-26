@@ -66,6 +66,7 @@ import java.util.List;
 import com.abelsalcedo.mgworlapp.activities.cliente.PedidoActivity;
 // hola muchachos
 // hasta mañana
+// tengo sueño
 public class MapClienteActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
