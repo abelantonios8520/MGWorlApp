@@ -468,6 +468,7 @@ import android.widget.Toast;
 
 import com.abelsalcedo.mgworlapp.activities.colaborador.NotificationBookingActivity;
 import com.abelsalcedo.mgworlapp.providers.ColaboradorProvider;
+import com.abelsalcedo.mgworlapp.providers.GeofireProviderColaborador;
 import com.abelsalcedo.mgworlapp.providers.TokenProvider;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQueryEventListener;
@@ -515,7 +516,7 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
     private LocationRequest mLocationRequest;
     private FusedLocationProviderClient mFusedLocation;
 
-    private GeofireProvider mGeofireProvider;
+    private GeofireProviderColaborador mGeofireProviderColaborador;
     private TokenProvider mTokenProvider;
 
     private final static int LOCATION_REQUEST_CODE = 1;
@@ -539,7 +540,7 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
     private String mDestination;
     private LatLng mDestinationLatLng;
 
-    private String mExtraClientId;
+    private String mExtraColabId;
 
     private GoogleMap.OnCameraIdleListener mCameraListener;
 
@@ -572,7 +573,7 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
                                     .build()
                     ));
 
-                    updateLocation();
+//                    updateLocation();
                     Log.d("ENTRO", "ACTUALIZANDO POSICION");
 
                     if (mIsFirstTime) {
@@ -591,7 +592,7 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
         MyToolbar.show(this, "Bienvenido colaborador", false);
 
         mAuthProvider = new AuthProvider();
-        mGeofireProvider = new GeofireProvider("active_colaboradores");
+        mGeofireProviderColaborador = new GeofireProviderColaborador("active_clientes");
         mTokenProvider = new TokenProvider();
         mFusedLocation = LocationServices.getFusedLocationProviderClient(this);
         mColaboradorProvider = new ColaboradorProvider();
@@ -599,7 +600,7 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
         mMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mMapFragment.getMapAsync(this);
         mConect = findViewById(R.id.btnConnect);
-        mExtraClientId = getIntent().getStringExtra("Clientes");
+        mExtraColabId = getIntent().getStringExtra("Colaboradores");
 
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), getResources().getString(R.string.google_maps_key));
@@ -712,7 +713,7 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
 //    }
 
     private void getActiveClientes() {
-        mGeofireProvider.getActiveClientes(mCurrentLatLng, 10).addGeoQueryEventListener(new GeoQueryEventListener() {
+        mGeofireProviderColaborador.getActiveClientes(mCurrentLatLng, 10).addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
                 // AÑADIREMOS LOS MARCADORES DE LOS EMPRENDEDORES QUE SE CONECTEN EN LA APLICACION
@@ -922,9 +923,9 @@ public class MapColaboradorActivity extends AppCompatActivity implements OnMapRe
         return p;
     }
 
-    private void updateLocation() {
-        if (mAuthProvider.existSession() && mCurrentLatLng != null) {
-            mGeofireProvider.saveLocation(mAuthProvider.getId(), mCurrentLatLng);
-        }
-    }
+//    private void updateLocation() {
+//        if (mAuthProvider.existSession() && mCurrentLatLng != null) {
+//            mGeofireProviderColaborador.saveLocation(mAuthProvider.getId(), mCurrentLatLng);
+//        }
+//    }
 }

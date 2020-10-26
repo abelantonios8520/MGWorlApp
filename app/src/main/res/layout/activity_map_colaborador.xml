@@ -16,11 +16,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         />
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/icon_pin_red"
-        android:layout_gravity="center"/>
+
 
     <Button
         android:id="@+id/btnConnect"
