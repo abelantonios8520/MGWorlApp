@@ -64,7 +64,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import com.abelsalcedo.mgworlapp.activities.cliente.PedidoActivity;
-
+// hola muchachos
 public class MapClienteActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
