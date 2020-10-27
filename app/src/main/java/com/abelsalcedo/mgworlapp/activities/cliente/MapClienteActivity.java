@@ -52,12 +52,14 @@ import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.abelsalcedo.mgworlapp.R;
 import com.abelsalcedo.mgworlapp.activities.MainActivity;
 import com.abelsalcedo.mgworlapp.includes.MyToolbar;
 import com.abelsalcedo.mgworlapp.providers.AuthProvider;
 import com.abelsalcedo.mgworlapp.providers.GeofireProvider;
+import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.SphericalUtil;
 
 import java.util.ArrayList;
@@ -106,7 +108,9 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
     private GoogleMap.OnCameraIdleListener mCameraListener;
 
     private Button mButtonRequestColaborador;
+    private boolean mIsConnect = false;
     private String mPedir = PedidoActivity.mPedir;
+    private ValueEventListener mListener;
 
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
@@ -115,6 +119,16 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
                 if (getApplicationContext() != null) {
 
                     mCurrentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    if (mMarker != null) {
+                        mMarker.remove();
+                    }
+
+                    mMarker = mMap.addMarker(new MarkerOptions().position(
+                            new LatLng(location.getLatitude(), location.getLongitude())
+                            )
+                                    .title("Tu posicion ciente")
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_my_location))
+                    );
 
                     // OBTENER LA LOCALIZACION DEL USUARIO EN TIEMPO REAL
                     mMap.moveCamera(CameraUpdateFactory.newCameraPosition(
@@ -164,32 +178,75 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
         mButtonRequestColaborador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestColaborador();
+//                requestColaborador();
+                if (mIsConnect) {
+                    disconnect();
+                } else {
+                    startLocation();
+                }
             }
         });
 
         generateToken();
-
+        isColaboradorWorking();
 
     }
 
+//  Inicio  Estableciendo marcador en el mapa
 
-    private void requestColaborador() {
-
-        if (mOriginLatLng != null && mDestinationLatLng != null) {
-            Intent intent = new Intent(MapClienteActivity.this, DetailRequestActivity.class);
-            intent.putExtra("origin_lat", mOriginLatLng.latitude);
-            intent.putExtra("origin_lng", mOriginLatLng.longitude);
-            intent.putExtra("destination_lat", mDestinationLatLng.latitude);
-            intent.putExtra("destination_lng", mDestinationLatLng.longitude);
-            intent.putExtra("origin", mOrigin);
-            intent.putExtra("destination", mDestination);
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "Debe seleccionar el lugar de recogida y el destino", Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mFusedLocation != null && mLocationCallback != null) {
+            mFusedLocation.removeLocationUpdates(mLocationCallback);
         }
-
+        if (mListener != null) {
+            if (mAuthProvider.existSession()) {
+                mGeofireProvider.isColaboradorWorking(mAuthProvider.getId()).removeEventListener(mListener);
+            }
+        }
     }
+
+    private void isColaboradorWorking() {
+        mListener = mGeofireProvider.isColaboradorWorking(mAuthProvider.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    disconnect();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void updateLocation() {
+        if (mAuthProvider.existSession() && mCurrentLatLng != null) {
+            mGeofireProvider.saveLocation(mAuthProvider.getId(), mCurrentLatLng);
+        }
+    }
+
+//  final  Estableciendo marcador en el mapa
+
+//    private void requestColaborador() {
+//
+//        if (mOriginLatLng != null && mDestinationLatLng != null) {
+//            Intent intent = new Intent(MapClienteActivity.this, DetailRequestActivity.class);
+//            intent.putExtra("origin_lat", mOriginLatLng.latitude);
+//            intent.putExtra("origin_lng", mOriginLatLng.longitude);
+//            intent.putExtra("destination_lat", mDestinationLatLng.latitude);
+//            intent.putExtra("destination_lng", mDestinationLatLng.longitude);
+//            intent.putExtra("origin", mOrigin);
+//            intent.putExtra("destination", mDestination);
+//            startActivity(intent);
+//        } else {
+//            Toast.makeText(this, "Debe seleccionar el lugar de recogida y el destino", Toast.LENGTH_SHORT).show();
+//        }
+//
+//    }
 
     private void limitSearch() {
         LatLng northSide = SphericalUtil.computeOffset(mCurrentLatLng, 5000, 0);
@@ -387,6 +444,21 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
             isActive = true;
         }
         return isActive;
+    }
+
+    private void disconnect() {
+
+        if (mFusedLocation != null) {
+            mButtonRequestColaborador.setText("Conectarse");
+            mIsConnect = false;
+            mFusedLocation.removeLocationUpdates(mLocationCallback);
+            if (mAuthProvider.existSession()) {
+                mGeofireProvider.removeLocation(mAuthProvider.getId());
+            }
+        }
+        else {
+            Toast.makeText(this, "No te puedes desconectar con MGWORLD", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void startLocation() {

@@ -13,8 +13,8 @@ public class GeofireProviderColaborador {
     private DatabaseReference mDatabase;
     private GeoFire mGeofire;
 
-    public GeofireProviderColaborador (String reference) {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child(reference);
+    public GeofireProviderColaborador (String referenceColaborador) {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(referenceColaborador);
         mGeofire = new GeoFire(mDatabase);
     }
 

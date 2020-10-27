@@ -57,11 +57,11 @@
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/icon_my_location"
-        android:layout_gravity="center"/>
+<!--    <ImageView-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:src="@drawable/icon_my_location"-->
+<!--        android:layout_gravity="center"/>-->
 
 
 
